@@ -1,73 +1,153 @@
-# React + TypeScript + Vite
+## 🚀 Project Title
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**SP (Service/Product Management System)**
 
-Currently, two official plugins are available:
+A modern React-based frontend application for managing products and users. This project serves as a client-side interface for an admin/back-office system, designed to interact with a Spring Boot backend.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+-----
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+This application provides a user-friendly interface for managing core business entities.
 
-## Expanding the ESLint configuration
+### Admin/Back Office Experience
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+  * **Product Management**:
+      * Browse a list of all products (`/products`).
+      * Add new products to the catalogue (`/products/add`).
+      * Edit existing product details (`/products/:id`).
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Shared APIs / Integrations
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+  * **Backend Integration**: Consumes a generic REST API for data persistence (Products and Users).
+  * **Proxy Configuration**: configured in Vite to proxy requests to a local backend (default: `http://localhost:8080`).
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+-----
+
+## 📐 Architecture and Technologies
+
+The project is built as a Single Page Application (SPA) using the modern frontend ecosystem.
+
+  * **Frontend Framework:** **React 19** with **TypeScript** for type-safe component development.
+  * **Build Tooling:** **Vite 7** for fast development and building.
+  * **Styling:** **Bootstrap 5** and **Sass** for responsive and consistent UI components.
+  * **Routing:** **React Router DOM 7** using `HashRouter` navigation.
+  * **HTTP Client:** **Axios** for API requests.
+  * **Linting:** **ESLint 9** with typescript configurations.
+
+-----
+
+## 📁 Project Layout
+
+Overview of the source structure:
+
+```text
+.
+├── src
+│   ├── assets/            (Static assets)
+│   ├── types/             (TypeScript type definitions, e.g., User, Product)
+│   ├── views/             (Page components/Screens)
+│   │   ├── home/          (Layout components: Header, SideBar)
+│   │   ├── products/      (Product-related views: List, Add, Edit)
+│   │   └── users/         (User-related views: List)
+│   ├── App.tsx            (Main layout container)
+│   ├── main.tsx           (Entry point)
+│   └── router.tsx         (Route definitions)
+├── public/                (Public static files)
+├── dist/                  (Production build output)
+├── vite.config.ts         (Vite configuration)
+└── package.json           (Dependencies and scripts)
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+-----
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🔧 Prerequisites
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
+Ensure you have the following installed before running the project:
+
+  * **Node.js**: (v18+ recommended).
+  * **npm** (comes with Node) or **yarn**.
+  * **Backend Service**: A backend service running on `http://localhost:8080` (expected to provide `/users` and `/products` endpoints).
+
+-----
+
+## ⚙️ Configuration
+
+Configuration is primarily handled via `vite.config.ts`.
+
+### Proxy Configuration
+The development server is configured to proxy requests to `http://localhost:8080`.
+
+```typescript
+// vite.config.ts
+server: {
+  proxy: {
+    '/api': {
+      target: 'http://localhost:8080/',
+      changeOrigin: true,
     },
   },
-])
+}
 ```
+-----
+
+## 🛠️ Setup and Running
+
+Follow these steps to get the frontend running locally.
+
+### Installation
+
+1.  **Clone the repository:**
+    ```bash
+    git clone <repository-url>
+    cd <project-directory>
+    ```
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+
+### Running the Application
+
+1.  **Start the development server:**
+    ```bash
+    npm run dev
+    ```
+    The application will be accessible at: `http://localhost:5173` (or the port shown in your terminal).
+
+2.  **Build for production:**
+    ```bash
+    npm run build
+    ```
+
+3.  **Preview production build:**
+    ```bash
+    npm run preview
+    ```
+
+-----
+
+## 🧪 Testing
+
+Currently, the project focuses on static analysis via linting.
+
+To check for code quality issues:
+
+```bash
+npm run lint
+```
+
+-----
+
+## 🔗 HTTP Entry Points / API Reference
+
+The frontend expects the following API endpoints to be available on the backend:
+
+| Entity | Method | Path | Purpose |
+|--------|--------|------|---------|
+| Products | GET, POST | `/api/products/lists` | Fetch list of products. |
+| Products | POST | `/api/addProduct` | Add a new product. |
+| Products | POST | `/api/deleteProduct/:id` | Delete a product. |
+| Products | POST | `/api/updateProduct` | Update a product. |
+| Products | GET | `/api/products/:id` | Get a product. |
+
